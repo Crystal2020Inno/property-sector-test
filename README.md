@@ -1,30 +1,41 @@
-# Newsletter & Factsheet Widgets
+# Newsletter Widget
 
-Separate embeddable widgets for displaying newsletters and factsheets from your API. Each widget can be independently embedded on any website using jsDelivr CDN.
+Embeddable widget for displaying newsletters from your API. The widget can be easily embedded on any website using jsDelivr CDN.
+
+## Widget Types
+
+### 1. List Widget (Summary View)
+
+Shows newsletter titles, dates, and "Read more" buttons. Perfect for listing pages.
+
+- **Newsletter List Widget**: `newsletter-list-widget.js` + `newsletter-list-widget.css`
+
+### 2. Detail Widget (Full Content)
+
+Shows complete newsletter content by ID. Perfect for detail pages.
+
+- **Newsletter Detail Widget**: `newsletter-detail-widget.js` + `newsletter-detail-widget.css`
+
+### 3. Full Widget (All Content at Once)
+
+Shows all newsletters with full content on one page.
+
+- **Newsletter Widget**: `newsletter-widget.js` + `newsletter-widget.css`
 
 ## Files
 
-### Newsletter Widget
-
-- `newsletter-widget.js` - Newsletter widget JavaScript file
-- `newsletter-widget.css` - Newsletter widget stylesheet
-
-### Factsheet Widget
-
-- `factsheet-widget.js` - Factsheet widget JavaScript file
-- `factsheet-widget.css` - Factsheet widget stylesheet
-
-### Legacy/Combined Widget (Optional)
-
-- `widget.js` - Combined widget JavaScript file (displays both)
-- `widget.css` - Combined widget stylesheet
-- `index.html` - Demo/example file for local testing
+- `newsletter-widget.js` - Full newsletter widget JavaScript file
+- `newsletter-widget.css` - Full newsletter widget stylesheet
+- `newsletter-list-widget.js` - Newsletter list widget JavaScript file
+- `newsletter-list-widget.css` - Newsletter list widget stylesheet
+- `newsletter-detail-widget.js` - Newsletter detail widget JavaScript file
+- `newsletter-detail-widget.css` - Newsletter detail widget stylesheet
 
 ## Setup
 
 1. Push this repository to GitHub
 2. Create a release or use the main branch
-3. Users can embed either widget independently using jsDelivr
+3. Users can embed the widget using jsDelivr
 
 ## Embedding Instructions
 
@@ -72,14 +83,7 @@ Embed the detail widget on your detail page. The ID is automatically read from t
 
 When users click "Read more", they'll be taken to `newsletter-detail.html?id=123` and the detail widget will automatically load that newsletter.
 
-**Same pattern works for Factsheets:**
-
-- Use `FactsheetListWidget` and `FactsheetDetailWidget`
-- Files: `factsheet-list-widget.js` and `factsheet-detail-widget.js`
-
-### Full Content Widgets
-
-### Newsletter Widget
+### Full Content Widget
 
 Add the following code to your HTML page where you want the newsletter widget to appear:
 
@@ -100,86 +104,63 @@ Add the following code to your HTML page where you want the newsletter widget to
 </script>
 ```
 
-### Factsheet Widget
+## Configuration Options
 
-Add the following code to your HTML page where you want the factsheet widget to appear:
+### NewsletterListWidget.init() Options
+
+- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
+- `apiKey` (string, required) - Your API key for authentication
+- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
+- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters")
+- `showTitle` (boolean, optional) - Whether to show the title (default: true)
+- `detailPageUrl` (string, required) - URL to the detail page where users will be redirected when clicking "Read more"
+
+### NewsletterDetailWidget.init() Options
+
+- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
+- `apiKey` (string, required) - Your API key for authentication
+- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
+- `newsletterId` (string, optional) - The ID of the newsletter to display. If not provided, it will be read from the URL parameter `?id=...`
+
+### NewsletterWidget.init() Options
+
+- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
+- `apiKey` (string, required) - Your API key for authentication
+- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
+- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters")
+- `showTitle` (boolean, optional) - Whether to show the title (default: true)
+
+## Examples
+
+### Newsletter List Widget
 
 ```html
-<!-- 1. Create a container div -->
-<div id="factsheet-widget"></div>
-
-<!-- 2. Load the factsheet widget JavaScript from jsDelivr -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/factsheet-widget.js"></script>
-
-<!-- 3. Initialize the factsheet widget -->
+<div id="newsletter-list-widget"></div>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/newsletter-list-widget.js"></script>
 <script>
-  FactsheetWidget.init({
-    targetId: "factsheet-widget",
+  NewsletterListWidget.init({
+    targetId: "newsletter-list-widget",
     apiKey: "your-api-key-here",
-    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
-  });
-</script>
-```
-
-### Embedding Both Widgets
-
-You can embed both widgets on the same page independently:
-
-```html
-<!-- Newsletter Widget -->
-<div id="newsletter-widget"></div>
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/newsletter-widget.js"></script>
-<script>
-  NewsletterWidget.init({
-    targetId: "newsletter-widget",
-    apiKey: "your-api-key-here",
-    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
+    detailPageUrl: "newsletter-detail.html",
     title: "Latest Newsletters",
     showTitle: true,
   });
 </script>
+```
 
-<!-- Factsheet Widget -->
-<div id="factsheet-widget"></div>
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/factsheet-widget.js"></script>
+### Newsletter Detail Widget
+
+```html
+<div id="newsletter-detail-widget"></div>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/newsletter-detail-widget.js"></script>
 <script>
-  FactsheetWidget.init({
-    targetId: "factsheet-widget",
+  NewsletterDetailWidget.init({
+    targetId: "newsletter-detail-widget",
     apiKey: "your-api-key-here",
-    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
-    title: "Factsheets",
-    showTitle: true,
+    // ID automatically read from URL ?id= parameter
   });
 </script>
 ```
-
-## Configuration Options
-
-### NewsletterListWidget.init() / FactsheetListWidget.init() Options
-
-- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
-- `apiKey` (string, required) - Your API key for authentication
-- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
-- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters" or "Factsheets")
-- `showTitle` (boolean, optional) - Whether to show the title (default: true)
-- `detailPageUrl` (string, required) - URL to the detail page where users will be redirected when clicking "Read more"
-
-### NewsletterDetailWidget.init() / FactsheetDetailWidget.init() Options
-
-- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
-- `apiKey` (string, required) - Your API key for authentication
-- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
-- `newsletterId` / `factsheetId` (string, optional) - The ID of the item to display. If not provided, it will be read from the URL parameter `?id=...`
-
-### NewsletterWidget.init() / FactsheetWidget.init() Options
-
-- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
-- `apiKey` (string, required) - Your API key for authentication
-- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
-- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters" or "Factsheets")
-- `showTitle` (boolean, optional) - Whether to show the title (default: true)
-
-## Examples
 
 ### Newsletter Widget with Custom Title
 
@@ -196,20 +177,6 @@ You can embed both widgets on the same page independently:
 </script>
 ```
 
-### Factsheet Widget Without Title
-
-```html
-<div id="factsheet-widget"></div>
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/factsheet-widget.js"></script>
-<script>
-  FactsheetWidget.init({
-    targetId: "factsheet-widget",
-    apiKey: "your-api-key-here",
-    showTitle: false,
-  });
-</script>
-```
-
 ## jsDelivr URL Format
 
 Replace the following in the script src:
@@ -221,15 +188,13 @@ Replace the following in the script src:
 Examples:
 
 - `https://cdn.jsdelivr.net/gh/username/repo@main/newsletter-widget.js`
-- `https://cdn.jsdelivr.net/gh/username/repo@main/factsheet-widget.js`
+- `https://cdn.jsdelivr.net/gh/username/repo@main/newsletter-list-widget.js`
+- `https://cdn.jsdelivr.net/gh/username/repo@main/newsletter-detail-widget.js`
 - `https://cdn.jsdelivr.net/gh/username/repo@v1.0.0/newsletter-widget.js`
-- `https://cdn.jsdelivr.net/gh/username/repo@latest/factsheet-widget.js`
 
 ## Local Testing
 
-To test locally, you can create HTML files that reference the widget files:
-
-**test-newsletter.html:**
+To test locally, you can create an HTML file that references the widget files:
 
 ```html
 <div id="newsletter-widget"></div>
@@ -243,28 +208,15 @@ To test locally, you can create HTML files that reference the widget files:
 </script>
 ```
 
-**test-factsheet.html:**
-
-```html
-<div id="factsheet-widget"></div>
-<script src="factsheet-widget.js"></script>
-<script>
-  FactsheetWidget.init({
-    targetId: "factsheet-widget",
-    apiKey: "your-api-key",
-    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
-  });
-</script>
-```
-
 ## Features
 
-- ✅ **Independent widgets** - Newsletter and Factsheet widgets work separately
-- ✅ **Responsive design** - Works on all screen sizes
+- ✅ **List and Detail widgets** - Separate widgets for listing and detail pages
+- ✅ **Responsive design** - 2-column grid on desktop, 1 column on mobile
 - ✅ **Automatic CSS loading** - CSS loads automatically from the same CDN location
 - ✅ **Error handling** - Graceful error messages for API failures
 - ✅ **Loading states** - Shows loading indicators while fetching data
-- ✅ **XSS protection** - All user content is HTML-escaped
+- ✅ **XSS protection** - All user content is HTML-escaped, safe HTML is sanitized
+- ✅ **HTML rendering** - Content from API renders properly with safe HTML tags
 - ✅ **Easy to embed** - Simple script tag integration
 - ✅ **No dependencies** - Pure vanilla JavaScript
 - ✅ **Works with jsDelivr CDN** - Fast global CDN delivery
@@ -275,8 +227,8 @@ Works in all modern browsers that support:
 
 - ES5 JavaScript
 - Fetch API
-- CSS Flexbox
+- CSS Grid and Flexbox
 
 ## Security Note
 
-⚠️ **Important**: The API key is exposed in the client-side code. Make sure your API has proper CORS settings and rate limiting. Consider using a public/read-only API key for these widgets.
+⚠️ **Important**: The API key is exposed in the client-side code. Make sure your API has proper CORS settings and rate limiting. Consider using a public/read-only API key for this widget.

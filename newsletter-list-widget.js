@@ -127,8 +127,8 @@
 
       this.targetElement.innerHTML = `
         ${titleHTML}
-        <div class="list-container">
-          <div id="newsletter-list-result" class="loading">
+        <div class="list-container" id="newsletter-list-result">
+          <div class="loading">
             Loading newsletters...
           </div>
         </div>
@@ -164,6 +164,8 @@
           }
 
           const newsletters = data.data.newsletters;
+          // Clear loading state and render items directly into the grid container
+          listResult.innerHTML = "";
           renderNewsletterList(newsletters, listResult, this.config.detailPageUrl);
         })
         .catch((error) => {
