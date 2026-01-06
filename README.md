@@ -16,16 +16,8 @@ Shows complete newsletter content by ID. Perfect for detail pages.
 
 - **Newsletter Detail Widget**: `newsletter-detail-widget.js` + `newsletter-detail-widget.css`
 
-### 3. Full Widget (All Content at Once)
-
-Shows all newsletters with full content on one page.
-
-- **Newsletter Widget**: `newsletter-widget.js` + `newsletter-widget.css`
-
 ## Files
 
-- `newsletter-widget.js` - Full newsletter widget JavaScript file
-- `newsletter-widget.css` - Full newsletter widget stylesheet
 - `newsletter-list-widget.js` - Newsletter list widget JavaScript file
 - `newsletter-list-widget.css` - Newsletter list widget stylesheet
 - `newsletter-detail-widget.js` - Newsletter detail widget JavaScript file
@@ -83,27 +75,6 @@ Embed the detail widget on your detail page. The ID is automatically read from t
 
 When users click "Read more", they'll be taken to `newsletter-detail.html?id=123` and the detail widget will automatically load that newsletter.
 
-### Full Content Widget
-
-Add the following code to your HTML page where you want the newsletter widget to appear:
-
-```html
-<!-- 1. Create a container div -->
-<div id="newsletter-widget"></div>
-
-<!-- 2. Load the newsletter widget JavaScript from jsDelivr -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/newsletter-widget.js"></script>
-
-<!-- 3. Initialize the newsletter widget -->
-<script>
-  NewsletterWidget.init({
-    targetId: "newsletter-widget",
-    apiKey: "your-api-key-here",
-    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
-  });
-</script>
-```
-
 ## Configuration Options
 
 ### NewsletterListWidget.init() Options
@@ -121,14 +92,6 @@ Add the following code to your HTML page where you want the newsletter widget to
 - `apiKey` (string, required) - Your API key for authentication
 - `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
 - `newsletterId` (string, optional) - The ID of the newsletter to display. If not provided, it will be read from the URL parameter `?id=...`
-
-### NewsletterWidget.init() Options
-
-- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
-- `apiKey` (string, required) - Your API key for authentication
-- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
-- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters")
-- `showTitle` (boolean, optional) - Whether to show the title (default: true)
 
 ## Examples
 
@@ -162,21 +125,6 @@ Add the following code to your HTML page where you want the newsletter widget to
 </script>
 ```
 
-### Newsletter Widget with Custom Title
-
-```html
-<div id="my-newsletter-widget"></div>
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/newsletter-widget.js"></script>
-<script>
-  NewsletterWidget.init({
-    targetId: "my-newsletter-widget",
-    apiKey: "your-api-key-here",
-    title: "Latest Updates",
-    showTitle: true,
-  });
-</script>
-```
-
 ## jsDelivr URL Format
 
 Replace the following in the script src:
@@ -187,21 +135,35 @@ Replace the following in the script src:
 
 Examples:
 
-- `https://cdn.jsdelivr.net/gh/username/repo@main/newsletter-widget.js`
 - `https://cdn.jsdelivr.net/gh/username/repo@main/newsletter-list-widget.js`
 - `https://cdn.jsdelivr.net/gh/username/repo@main/newsletter-detail-widget.js`
-- `https://cdn.jsdelivr.net/gh/username/repo@v1.0.0/newsletter-widget.js`
+- `https://cdn.jsdelivr.net/gh/username/repo@v1.0.0/newsletter-list-widget.js`
 
 ## Local Testing
 
-To test locally, you can create an HTML file that references the widget files:
+To test locally, you can create HTML files that reference the widget files:
 
+**List Page:**
 ```html
-<div id="newsletter-widget"></div>
-<script src="newsletter-widget.js"></script>
+<div id="newsletter-list-widget"></div>
+<script src="newsletter-list-widget.js"></script>
 <script>
-  NewsletterWidget.init({
-    targetId: "newsletter-widget",
+  NewsletterListWidget.init({
+    targetId: "newsletter-list-widget",
+    apiKey: "your-api-key",
+    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
+    detailPageUrl: "newsletter-detail.html",
+  });
+</script>
+```
+
+**Detail Page:**
+```html
+<div id="newsletter-detail-widget"></div>
+<script src="newsletter-detail-widget.js"></script>
+<script>
+  NewsletterDetailWidget.init({
+    targetId: "newsletter-detail-widget",
     apiKey: "your-api-key",
     apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
   });
