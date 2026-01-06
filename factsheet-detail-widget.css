@@ -1,0 +1,96 @@
+.factsheet-detail-widget {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.factsheet-detail-widget .detail-item {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.factsheet-detail-widget .detail-item h1 {
+  color: #333;
+  margin: 0 0 15px 0;
+  font-size: 2em;
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 15px;
+}
+
+.factsheet-detail-widget .detail-date {
+  color: #666;
+  font-size: 0.9em;
+  margin: 0 0 20px 0;
+}
+
+.factsheet-detail-widget .detail-intro {
+  color: #666;
+  line-height: 1.8;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+.factsheet-detail-widget .section {
+  margin: 30px 0;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+}
+
+.factsheet-detail-widget .section h4 {
+  color: #333;
+  margin: 0 0 15px 0;
+  font-size: 1.3em;
+}
+
+.factsheet-detail-widget .section-content {
+  color: #555;
+  line-height: 1.8;
+  margin: 15px 0;
+}
+
+.factsheet-detail-widget .section-content p {
+  margin: 15px 0;
+}
+
+.factsheet-detail-widget .detail-link {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.factsheet-detail-widget .detail-link a {
+  color: #4caf50;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.factsheet-detail-widget .detail-link a:hover {
+  text-decoration: underline;
+}
+
+.factsheet-detail-widget .loading {
+  text-align: center;
+  color: #666;
+  padding: 40px;
+}
+
+.factsheet-detail-widget .error {
+  color: red;
+  padding: 20px;
+  background-color: #ffe6e6;
+  border-radius: 4px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.factsheet-detail-widget .empty {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+  font-style: italic;
+}
+

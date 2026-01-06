@@ -28,6 +28,57 @@ Separate embeddable widgets for displaying newsletters and factsheets from your 
 
 ## Embedding Instructions
 
+### List + Detail Widget Pattern (Recommended)
+
+This pattern shows a summary list with "Read more" buttons that link to detail pages. Perfect for better user experience and page performance.
+
+#### Step 1: Create a List Page
+
+Embed the list widget on your listing page:
+
+```html
+<!-- Newsletter List Page -->
+<div id="newsletter-list-widget"></div>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/newsletter-list-widget.js"></script>
+<script>
+  NewsletterListWidget.init({
+    targetId: "newsletter-list-widget",
+    apiKey: "your-api-key-here",
+    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
+    detailPageUrl: "newsletter-detail.html", // URL to your detail page
+    title: "Newsletters",
+    showTitle: true,
+  });
+</script>
+```
+
+#### Step 2: Create a Detail Page
+
+Embed the detail widget on your detail page. The ID is automatically read from the URL parameter:
+
+```html
+<!-- Newsletter Detail Page (newsletter-detail.html) -->
+<div id="newsletter-detail-widget"></div>
+<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/YOUR_REPO@main/newsletter-detail-widget.js"></script>
+<script>
+  NewsletterDetailWidget.init({
+    targetId: "newsletter-detail-widget",
+    apiKey: "your-api-key-here",
+    apiBaseUrl: "https://content-api-2020-5886a3310333.herokuapp.com/api",
+    // newsletterId is automatically read from URL ?id= parameter
+  });
+</script>
+```
+
+When users click "Read more", they'll be taken to `newsletter-detail.html?id=123` and the detail widget will automatically load that newsletter.
+
+**Same pattern works for Factsheets:**
+
+- Use `FactsheetListWidget` and `FactsheetDetailWidget`
+- Files: `factsheet-list-widget.js` and `factsheet-detail-widget.js`
+
+### Full Content Widgets
+
 ### Newsletter Widget
 
 Add the following code to your HTML page where you want the newsletter widget to appear:
@@ -104,20 +155,28 @@ You can embed both widgets on the same page independently:
 
 ## Configuration Options
 
-### NewsletterWidget.init() Options
+### NewsletterListWidget.init() / FactsheetListWidget.init() Options
 
 - `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
 - `apiKey` (string, required) - Your API key for authentication
 - `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
-- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters")
+- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters" or "Factsheets")
 - `showTitle` (boolean, optional) - Whether to show the title (default: true)
+- `detailPageUrl` (string, required) - URL to the detail page where users will be redirected when clicking "Read more"
 
-### FactsheetWidget.init() Options
+### NewsletterDetailWidget.init() / FactsheetDetailWidget.init() Options
 
 - `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
 - `apiKey` (string, required) - Your API key for authentication
 - `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
-- `title` (string, optional) - Title to display at the top of the widget (default: "Factsheets")
+- `newsletterId` / `factsheetId` (string, optional) - The ID of the item to display. If not provided, it will be read from the URL parameter `?id=...`
+
+### NewsletterWidget.init() / FactsheetWidget.init() Options
+
+- `targetId` (string, required) - The ID of the HTML element where the widget will be rendered
+- `apiKey` (string, required) - Your API key for authentication
+- `apiBaseUrl` (string, optional) - Base URL for the API (defaults to the provided URL)
+- `title` (string, optional) - Title to display at the top of the widget (default: "Newsletters" or "Factsheets")
 - `showTitle` (boolean, optional) - Whether to show the title (default: true)
 
 ## Examples
